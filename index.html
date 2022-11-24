@@ -8,14 +8,77 @@
     <link rel="stylesheet" href="/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="/css/principal/style.css">
     <!-- Bibliotecas JS -->
-    <script src="/js/bootstrap.js"></script>
-    <script src="https://kit.fontawesome.com/82445024cd.js" crossorigin="anonymous"></script>
-    <script src="/js/principal/script.js"></script>
+    <script src="/js/bootstrap.js" defer></script>
+    <script src="https://kit.fontawesome.com/82445024cd.js" crossorigin="anonymous" defer></script>
+    <script src="/js/principal/script.js" defer></script>
     <title>Cifra de Playfair</title>
 </head>
 <body>
-    <h1>Crifra Playfair</h1>
-    <i class="fa-solid fa-computer-mouse"></i>
-    <button type="button" class="btn btn-primary">Primary</button>
+    <header>
+        <h1>Crifra Playfair</h1>
+    </header>
+    <main>
+        <div class="container-btn">
+            <button id="encriptar">Encriptar</button>
+            <button id="desencriptar" class="deactive">Desencriptar</button>
+        </div>
+        <div class="container-chave">
+            <input id="input" type="text" placeholder="Chave da cifra">
+            <button>Definir</button>
+        </div>
+        <h4>Tabela da Cifra</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <section>
+            <h4 id="h4-1">Texto para Encriptar</h4>
+            <div class="container-textarea">
+                <textarea id="textarea1" type="text" placeholder="Aumentar arrastando para baixo↘"></textarea>
+                <button id="btn-run"><i class="fa-solid fa-play"></i></button>
+            </div>
+            <h4 id="h4-2">Texto Encriptado</h4>
+            <div class="container-textarea">
+                <textarea id="textarea2" type="text" placeholder="Aumentar arrastando para baixo↘"></textarea>
+                <button id="btn-copy"><i class="fa-solid fa-copy"></i></i></button>
+            </div>
+        </section>
+        <button id="btn-clear"><i style="margin-right: 1rem;" class="fa-solid fa-trash"></i>Limpar</button>
+    </main>
 </body>
 </html>
