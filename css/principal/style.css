@@ -10,6 +10,32 @@ body {
     min-height: 100Vh;
 }
 
+#container-alerta {
+    position: fixed;
+    display: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+    height: 60px;
+    padding: 1rem 2rem;
+    /* background-color: #C7E2D6;
+    border: 3px solid #41b341; */
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-left: 15%;
+    margin-right: 15%;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+    transition: 300ms;
+}
+
+#container-alerta p{
+    margin: 0;
+}
+
 header {
     display: flex;
     justify-content: center;

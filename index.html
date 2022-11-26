@@ -14,6 +14,7 @@
     <title>Cifra de Playfair</title>
 </head>
 <body>
+    <div id="container-alerta"></div>
     <header>
         <h1>Crifra Playfair</h1>
     </header>
@@ -24,17 +25,17 @@
         </div>
         <div class="container-chave">
             <input id="input" type="text" placeholder="Chave da cifra">
-            <button>Definir</button>
+            <button id="btn-Definir">Definir</button>
         </div>
         <h4>Tabela da Cifra</h4>
-        <table class="table table-bordered">
+        <table class="table table-bordered text-center align-middle">
             <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -74,7 +75,7 @@
             </div>
             <h4 id="h4-2">Texto Encriptado</h4>
             <div class="container-textarea">
-                <textarea id="textarea2" type="text" placeholder="Aumentar arrastando para baixo↘"></textarea>
+                <textarea id="textarea2" type="text" placeholder="Aumentar arrastando para baixo↘" readonly></textarea>
                 <button id="btn-copy"><i class="fa-solid fa-copy"></i></i></button>
             </div>
         </section>
