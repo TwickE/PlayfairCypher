@@ -1,37 +1,42 @@
-const btnEncriptar = document.getElementById("encriptar");
-const btnDesencriptar = document.getElementById("desencriptar");
+const tabEncriptar = document.getElementById("encriptar");
+const tabDesencriptar = document.getElementById("desencriptar");
+const sectionEncriptar = document.getElementById("sectionEncriptar");
+const sectionDesencriptar = document.getElementById("sectionDesencriptar");
 const btnDefinir = document.getElementById("btn-Definir");
 const h4One = document.getElementById("h4-1");
 const h4Two = document.getElementById("h4-2");
 const inputCypher = document.getElementById("input");
 const textarea1 = document.getElementById("textarea1");
 const textarea2 = document.getElementById("textarea2");
+const textarea3 = document.getElementById("textarea3");
+const textarea4 = document.getElementById("textarea4");
 const tds = document.querySelectorAll("td");
-const btnCopy = document.getElementById("btn-copy");
+const btnCopy1 = document.getElementById("btn-copy1");
 const btnClear = document.getElementById("btn-clear");
 const alerta = document.getElementById("container-alerta");
 
-//Chave da cifra
-let chaveExi = false;
+const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 //Clique no botão encriptar
-btnEncriptar.addEventListener("click", () => {
+tabEncriptar.addEventListener("click", () => {
+    //Troca para a section de encriptar
     try {
-        btnDesencriptar.classList.add("deactive");
-        btnEncriptar.classList.remove("deactive");
-        h4One.innerHTML = "Texto para Encriptar";
-        h4Two.innerHTML = "Texto Encriptado";
+        tabDesencriptar.classList.add("deactive");
+        tabEncriptar.classList.remove("deactive");
+        sectionDesencriptar.classList.add("hide");
+        sectionEncriptar.classList.remove("hide");
     }catch(e) {
     }
 });
 
 //Clique no botão desencriptar
-btnDesencriptar.addEventListener("click", () => {
+tabDesencriptar.addEventListener("click", () => {
+    //Troca para a section de desencriptar
     try {
-        btnEncriptar.classList.add("deactive");
-        btnDesencriptar.classList.remove("deactive");
-        h4Two.innerHTML = "Texto Desencriptado";
-        h4One.innerHTML = "Texto Encriptado";
+        tabEncriptar.classList.add("deactive");
+        tabDesencriptar.classList.remove("deactive");
+        sectionDesencriptar.classList.remove("hide");
+        sectionEncriptar.classList.add("hide");
     }catch(e) {
     }
 });
@@ -47,44 +52,60 @@ btnClear.addEventListener("click", () => {
         td.innerHTML = "";
     });
 
-    ConfiguracaoAlerta("Tudo Limpo!", "fa-circle-check", "verde");
+    ConfiguracaoAlerta("Tudo Limpo", "fa-circle-check", "verde");
 });
 
 //Clique no botão Copiar Texto
-btnCopy.addEventListener("click", () => {
+btnCopy1.addEventListener("click", () => {
     if(!textarea2.value === "") {
         //Copia o texto para o cilpboard
         const text = textarea2.value;
         navigator.clipboard.writeText(text);
 
         //Mostra o alerta
-        ConfiguracaoAlerta("Texto copiado com sucesso!", "fa-copy", "verde");
+        ConfiguracaoAlerta("Texto copiado com sucesso", "fa-copy", "verde");
     }else {
         //Mostra o alerta
-        ConfiguracaoAlerta("Não é possível copiar o texto!", "fa-triangle-exclamation", "orange");
+        ConfiguracaoAlerta("Não é possível copiar o texto", "fa-triangle-exclamation", "orange");
     }
 });
 
 btnDefinir.addEventListener("click", () => {
-    KeySet();
+    preencheTabelaCifra();
 });
 
 //Função para preencher a tabela da cifra
-function KeySet() {
+function preencheTabelaCifra() {
     //Remove os espaços
     chaveCifra = input.value.replace(/(\s*)/g, "");
 
+    //Mostra o alerta se a chave da cifra estiver vazia
     if(!chaveCifra) {
         ConfiguracaoAlerta("Preencha o campo Chave de Cifra", "fa-triangle-exclamation", "orange");
-        chaveExi = false;
         return;
     }
+
+    //Chave sem ser formatada
+    raw_key = input.value;
 
     //Converte para letras maiúsculas
     chaveCifra = chaveCifra.toUpperCase();
     //Remove as letras duplicadas
     chaveCifra = removeDuplicados(chaveCifra)
-    console.log(chaveCifra);
+
+    //Variável para armazenar o as letras dat tabela da cifra
+    const letras =[];
+
+    //Preenche o array com as letras da chave
+    for (let letra of chaveCifra) {
+        letras.push(letra);
+      }
+
+    
+
+    /* tds.forEach((td) => {
+        td.innerHTML = "";
+    }); */
 }
 
 //Remove as letras duplicadas
@@ -126,9 +147,9 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
     let texto = `<p id="alertaTexto">${paragrafoTexto}</p>`
     alerta.innerHTML += texto;
     //Mostra o alerta
-    alerta.style.display = "flex";
+    alerta.classList.add("visible");
     //Esconde o alerta
     setTimeout(() => {
-        alerta.style.display = "none";
-    }, 2000);
+        alerta.classList.remove("visible");
+    }, 3000);
 }
