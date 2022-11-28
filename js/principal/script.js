@@ -15,7 +15,8 @@ const btnCopy1 = document.getElementById("btn-copy1");
 const btnClear = document.getElementById("btn-clear");
 const alerta = document.getElementById("container-alerta");
 
-const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const numeroLetras = 25; //Tamnho da tabela da cifra
+const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]; //Alfabeto
 
 //Clique no botão encriptar
 tabEncriptar.addEventListener("click", () => {
@@ -52,7 +53,7 @@ btnClear.addEventListener("click", () => {
         td.innerHTML = "";
     });
 
-    ConfiguracaoAlerta("Tudo Limpo", "fa-circle-check", "verde");
+    ConfiguracaoAlerta("Tudo Limpo", "fa-circle-check", "verde"); //Mostra o alerta
 });
 
 //Clique no botão Copiar Texto
@@ -62,22 +63,21 @@ btnCopy1.addEventListener("click", () => {
         const text = textarea2.value;
         navigator.clipboard.writeText(text);
 
-        //Mostra o alerta
-        ConfiguracaoAlerta("Texto copiado com sucesso", "fa-copy", "verde");
+        ConfiguracaoAlerta("Texto copiado com sucesso", "fa-copy", "verde"); //Mostra o alerta
     }else {
-        //Mostra o alerta
-        ConfiguracaoAlerta("Não é possível copiar o texto", "fa-triangle-exclamation", "orange");
+        ConfiguracaoAlerta("Não é possível copiar o texto", "fa-triangle-exclamation", "orange"); //Mostra o alerta
     }
 });
 
+//Clique no botão definir a chave da cifra
 btnDefinir.addEventListener("click", () => {
+    //Preenche a tabela da cifra
     preencheTabelaCifra();
 });
 
 //Função para preencher a tabela da cifra
 function preencheTabelaCifra() {
-    //Remove os espaços
-    chaveCifra = input.value.replace(/(\s*)/g, "");
+    chaveCifra = input.value.replace(/(\s*)/g, ""); //Remove os espaços
 
     //Mostra o alerta se a chave da cifra estiver vazia
     if(!chaveCifra) {
@@ -85,27 +85,36 @@ function preencheTabelaCifra() {
         return;
     }
 
-    //Chave sem ser formatada
-    raw_key = input.value;
+    chaveCifra = chaveCifra.toUpperCase(); //Converte para letras maiúsculas
+    chaveCifra = removeDuplicados(chaveCifra); //Remove as letras duplicadas
 
-    //Converte para letras maiúsculas
-    chaveCifra = chaveCifra.toUpperCase();
-    //Remove as letras duplicadas
-    chaveCifra = removeDuplicados(chaveCifra)
-
-    //Variável para armazenar o as letras dat tabela da cifra
-    const letras =[];
+    const letras = []; //Variável para armazenar o as letras da tabela da cifra
 
     //Preenche o array com as letras da chave
-    for (let letra of chaveCifra) {
+    for(let letra of chaveCifra) {
         letras.push(letra);
-      }
+    }
 
-    
+    let numeroLetras2 = numeroLetras - letras.length; //Gurada o número de letras que falta preencher
 
-    /* tds.forEach((td) => {
-        td.innerHTML = "";
-    }); */
+    //Preenche o array com as letras do alfabeto restantes
+    for(let i=0; i<=numeroLetras2; i++) {
+        for(let letra of alfabeto) {
+            if(!letras.includes(letra)) {
+                //Remove a letra J
+                if(letra != "J") {
+                    letras.push(letra);
+                }
+            }
+        }
+    }
+
+    let i = 0; //Variável contadora
+    //Preenche a tabela da cifra
+    tds.forEach((td) => {
+        td.innerHTML = letras[i];
+        i++;
+    });
 }
 
 //Remove as letras duplicadas
@@ -127,8 +136,8 @@ function removeDuplicados(key) {
 
 //Função para criar um alerta
 function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
-    //limpa o alerta
-    alerta.innerHTML = "";
+    alerta.innerHTML = ""; //limpa o alerta
+
     //Cor do alerta
     if(cor === "verde") {
         alerta.style.backgroundColor = "#C7E2D6";
@@ -140,14 +149,17 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
         alerta.style.backgroundColor = "#FFF1C2";
         alerta.style.border = "3px solid #de9324";
     }
+    
     //Icon do alerta
     let icon = `<i class="fa-solid ${iconTexto}"></i>`;
     alerta.innerHTML += icon;
+
     //Texto do alerta
     let texto = `<p id="alertaTexto">${paragrafoTexto}</p>`
     alerta.innerHTML += texto;
-    //Mostra o alerta
-    alerta.classList.add("visible");
+    
+    alerta.classList.add("visible"); //Mostra o alerta
+
     //Esconde o alerta
     setTimeout(() => {
         alerta.classList.remove("visible");
