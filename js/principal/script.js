@@ -7,6 +7,7 @@ const h4One = document.getElementById("h4-1");
 const h4Two = document.getElementById("h4-2");
 const inputCypher = document.getElementById("input");
 const textarea1 = document.getElementById("textarea1");
+const btnRun1 = document.getElementById("btn-run1");
 const textarea2 = document.getElementById("textarea2");
 const textarea3 = document.getElementById("textarea3");
 const textarea4 = document.getElementById("textarea4");
@@ -134,6 +135,44 @@ function removeDuplicados(key) {
     return novaChave;
 }
 
+
+function PreparaTexto(texto) {
+    texto = texto.toUpperCase(); //Converte para letras maiúsculas
+    texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
+    
+    const ArrayTexto = []; //Variável para armazenar o texto dividido
+    let letra1 = ""; //Variável para armazenar a primeira letra
+    let letra2 = ""; //Variável para armazenar a segunda letra
+
+    //Divide o texto em pares de letras
+    for(let i=0; i<texto.length; i++) {
+        letra1 = texto[i];
+        letra2 = texto[i+1];
+
+        if(texto[i-1] == letra1) { //Verifica se a letra2 é igual a letra1
+            ArrayTexto.push("X" + letra1); //Adiciona a letra1 e a letra X
+
+        }else if(letra2 == undefined) { //Verifica se a letra2 não existe
+            ArrayTexto.push(letra1 + "X"); //Adiciona a letra1 e a letra X
+
+        }else if(letra1 == letra2) { //Verifica se a letra1 é igual a letra1 anterior
+            ArrayTexto.push(letra1 + "X"); //Adiciona a letra X e a letra1
+            
+        }else {
+            ArrayTexto.push(letra1 + letra2); //Adiciona a letra1 e a letra2
+            i++;
+        }
+    }
+    console.log(ArrayTexto);
+
+    /* if(letra1 == letra2) { //Verifica se a letra2 é igual a letra1
+            ArrayTexto.push(letra1 + "X"); //Adiciona a letra1 e a letra X */
+
+    return ArrayTexto;
+}
+
+PreparaTexto("menssagem");
+
 //Função para criar um alerta
 function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
     alerta.innerHTML = ""; //limpa o alerta
@@ -149,7 +188,7 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
         alerta.style.backgroundColor = "#FFF1C2";
         alerta.style.border = "3px solid #de9324";
     }
-    
+
     //Icon do alerta
     let icon = `<i class="fa-solid ${iconTexto}"></i>`;
     alerta.innerHTML += icon;
