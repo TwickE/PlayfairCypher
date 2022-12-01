@@ -135,7 +135,7 @@ function removeDuplicados(key) {
     return novaChave;
 }
 
-
+//Prepara o texto para ser encriptado
 function PreparaTexto(texto) {
     texto = texto.toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
