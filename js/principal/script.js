@@ -140,34 +140,51 @@ function PreparaTexto(texto) {
     texto = texto.toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
     
-    const ArrayTexto = []; //Variável para armazenar o texto dividido
+    const ArrayTexto = []; //Variável para armazenar o texto final dividido em pares
     let letra1 = ""; //Variável para armazenar a primeira letra
     let letra2 = ""; //Variável para armazenar a segunda letra
+    let texto2 = ""; //Variável para armazenar o texto final
+
+    //Separa a letras repetidas com um X
+    for(let i=0; i<texto.length; i++) {
+        if(texto[i] == texto[i+1]) { //Verifica se a letra atual é igual a próxima
+            texto2 = texto2 + texto[i] + "X";
+        }else {
+            texto2 = texto2 + texto[i];
+        }
+    }
+
+    //Divide o texto em pares e verifica se o texto tem um número ímpar de letras
+    for(let i=0; i<texto2.length; i++) {
+        letra1 = texto2[i];
+        letra2 = texto2[i+1];
+
+        if(letra2 == undefined) { //Se o texto tiver um número ímpar de letras
+            ArrayTexto.push(letra1 + "X");
+        }else {
+            ArrayTexto.push(letra1 + letra2);
+        }
+        i++;
+    }
 
     //Divide o texto em pares de letras
-    for(let i=0; i<texto.length; i++) {
+    /* for(let i=0; i<texto.length; i++) {
         letra1 = texto[i];
         letra2 = texto[i+1];
 
-        if(texto[i-1] == letra1) { //Verifica se a letra2 é igual a letra1
-            ArrayTexto.push("X" + letra1); //Adiciona a letra1 e a letra X
+        if(letra1 == letra2) { //Verifica se a letra2 é igual a letra1
+            ArrayTexto.push(letra1 + "X"); //Adiciona a letra1 e a letra X
 
         }else if(letra2 == undefined) { //Verifica se a letra2 não existe
             ArrayTexto.push(letra1 + "X"); //Adiciona a letra1 e a letra X
 
-        }else if(letra1 == letra2) { //Verifica se a letra1 é igual a letra1 anterior
-            ArrayTexto.push(letra1 + "X"); //Adiciona a letra X e a letra1
-            
         }else {
             ArrayTexto.push(letra1 + letra2); //Adiciona a letra1 e a letra2
             i++;
         }
-    }
+    } */
+
     console.log(ArrayTexto);
-
-    /* if(letra1 == letra2) { //Verifica se a letra2 é igual a letra1
-            ArrayTexto.push(letra1 + "X"); //Adiciona a letra1 e a letra X */
-
     return ArrayTexto;
 }
 
