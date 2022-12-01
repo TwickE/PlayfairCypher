@@ -119,56 +119,29 @@ function preencheTabelaCifra() {
 }
 
 //Remove as letras duplicadas
-function removeDuplicados(key) {
-    let novaChave = "";
-    for(let i=0; i<key.length; i++){
-        let exi = false;
-        for(let j=0; j<i; j++) {
-            if(key[i]===key[j]) {
-                exi = true;
-            }
-        } 
-        if(exi===false) {
-            novaChave += key[i];
-        } 
+function removeDuplicados(texto) {
+    let novoTexto = ""; //Variável para armazenar o texto sem letras duplicadas
+
+    //Percorre o texto
+    for(let letra of texto) {
+        if(!novoTexto.includes(letra)) {
+            novoTexto += letra;
+        }
     }
-    return novaChave;
+    return novoTexto;
 }
 
 //Prepara o texto para ser encriptado
-function PreparaTexto(texto) {
+function preparaTexto(texto) {
     texto = texto.toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
     
     const ArrayTexto = []; //Variável para armazenar o texto final dividido em pares
     let letra1 = ""; //Variável para armazenar a primeira letra
     let letra2 = ""; //Variável para armazenar a segunda letra
-    let texto2 = ""; //Variável para armazenar o texto final
-
-    //Separa a letras repetidas com um X
-    for(let i=0; i<texto.length; i++) {
-        if(texto[i] == texto[i+1]) { //Verifica se a letra atual é igual a próxima
-            texto2 = texto2 + texto[i] + "X";
-        }else {
-            texto2 = texto2 + texto[i];
-        }
-    }
-
-    //Divide o texto em pares e verifica se o texto tem um número ímpar de letras
-    for(let i=0; i<texto2.length; i++) {
-        letra1 = texto2[i];
-        letra2 = texto2[i+1];
-
-        if(letra2 == undefined) { //Se o texto tiver um número ímpar de letras
-            ArrayTexto.push(letra1 + "X");
-        }else {
-            ArrayTexto.push(letra1 + letra2);
-        }
-        i++;
-    }
 
     //Divide o texto em pares de letras
-    /* for(let i=0; i<texto.length; i++) {
+    for(let i=0; i<texto.length; i++) {
         letra1 = texto[i];
         letra2 = texto[i+1];
 
@@ -182,13 +155,13 @@ function PreparaTexto(texto) {
             ArrayTexto.push(letra1 + letra2); //Adiciona a letra1 e a letra2
             i++;
         }
-    } */
+    }
 
     console.log(ArrayTexto);
     return ArrayTexto;
 }
 
-PreparaTexto("menssagem");
+preparaTexto("menssagem");
 
 //Função para criar um alerta
 function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
