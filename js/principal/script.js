@@ -66,7 +66,7 @@ btnCopy1.addEventListener("click", () => {
 
         ConfiguracaoAlerta("Texto copiado com sucesso", "fa-copy", "verde"); //Mostra o alerta
     }else {
-        ConfiguracaoAlerta("Não é possível copiar o texto", "fa-triangle-exclamation", "orange"); //Mostra o alerta
+        ConfiguracaoAlerta("Não é possível copiar o texto", "fa-triangle-exclamation", "laranja"); //Mostra o alerta
     }
 });
 
@@ -79,15 +79,22 @@ btnDefinir.addEventListener("click", () => {
 //Função para preencher a tabela da cifra
 function preencheTabelaCifra() {
     chaveCifra = input.value.replace(/(\s*)/g, ""); //Remove os espaços
+    chaveCifra = chaveCifra.toUpperCase(); //Converte para letras maiúsculas
+    chaveCifra = removeDuplicados(chaveCifra); //Remove as letras duplicadas
 
     //Mostra o alerta se a chave da cifra estiver vazia
     if(!chaveCifra) {
-        ConfiguracaoAlerta("Preencha o campo Chave de Cifra", "fa-triangle-exclamation", "orange");
+        ConfiguracaoAlerta("Preencha o campo Chave de Cifra", "fa-triangle-exclamation", "laranja");
         return;
     }
 
-    chaveCifra = chaveCifra.toUpperCase(); //Converte para letras maiúsculas
-    chaveCifra = removeDuplicados(chaveCifra); //Remove as letras duplicadas
+    //Remove caracteres especiais
+    for(let i = 0; i < chaveCifra.length; i++) {
+        if(!alfabeto.includes(chaveCifra[i])) {
+            ConfiguracaoAlerta("Caracteres inválidos, introduza caracteres de A-Z", "fa-triangle-exclamation", "laranja");
+            return;
+        }
+    }
 
     const letras = []; //Variável para armazenar o as letras da tabela da cifra
 
