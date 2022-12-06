@@ -18,6 +18,8 @@ const alerta = document.getElementById("container-alerta");
 
 const numeroLetras = 25; //Tamnho da tabela da cifra
 const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]; //Alfabeto
+/* let matriz = Array(5).fill( Array(5).fill("none") ); //Declara matriz vazia */
+const matriz = [[], [], [], [], []]; //Declara matriz vazia
 
 //Clique no botão encriptar
 tabEncriptar.addEventListener("click", () => {
@@ -74,6 +76,11 @@ btnCopy1.addEventListener("click", () => {
 btnDefinir.addEventListener("click", () => {
     //Preenche a tabela da cifra
     preencheTabelaCifra();
+    encriptar();
+});
+
+btnRun1.addEventListener("click", () => {
+    
 });
 
 //Função para preencher a tabela da cifra
@@ -123,6 +130,20 @@ function preencheTabelaCifra() {
         td.innerHTML = letras[i];
         i++;
     });
+    matrizTabelaCifra();
+}
+
+//Função para preencher a matriz com as letras da tabela da cifra
+function matrizTabelaCifra() {
+    let i = 0; //Variável contadora
+    
+    //Preenche a matriz com as letras da tabela da cifra
+    for(let x = 0; x < 5; x++) {
+        for(let y = 0; y < 5; y++) {
+            matriz[x][y] = tds[i].innerHTML;
+            i++;
+        }
+    }
 }
 
 //Remove as letras duplicadas
@@ -168,7 +189,66 @@ function preparaTexto(texto) {
     return ArrayTexto;
 }
 
-preparaTexto("menssagem");
+//Encripta o texto
+function encriptar() {
+    const textoPreparado = preparaTexto("ms"); //Variável para armazenar o texto preparado
+    const textoEncriptado = []; //Variável para armazenar o texto encriptado
+    
+    textoPreparado.forEach((parDeLetras) => {
+        let letra1 = parDeLetras[0];
+        let letra2 = parDeLetras[1];
+        let posicaoLetra1 = [];
+        let posicaoLetra2 = [];
+
+        //Percorre a matriz para encontrar a posição das letras
+        for(let x = 0; x < 5; x++) {
+            for(let y = 0; y < 5; y++) {
+                if(matriz[x][y] == letra1) {
+                    posicaoLetra1 = [x, y]; //Guarda a posição da letra1
+                    console.log("Letra: " + matriz[x][y] + " Posição: " + posicaoLetra1);
+                }else if(matriz[x][y] == letra2) {
+                    posicaoLetra2 = [x, y]; //Guarda a posição da letra2
+                    console.log("Letra: " + matriz[x][y] + " Posição: " + posicaoLetra2);
+                }
+            }
+        }
+
+        let letra1Encriptada = "";
+        let letra2Encriptada = "";
+
+        if(posicaoLetra1[1] == posicaoLetra2[1]) { //Verifica se as letras estão na mesma coluna
+            if(posicaoLetra1[0] == 4) { //Verifica se a letra1 está na última posição
+                letra1Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1]];
+                letra2Encriptada = matriz[posicaoLetra2[0] + 1][posicaoLetra2[1]];
+            }else if(posicaoLetra2[0] == 4) { //Verifica se a letra2 está na última posição
+                letra2Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1]];
+                letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
+            }else { //Se nenhuma das letras estiver na última posiçao, descem uma linha
+                letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
+                letra2Encriptada = matriz[posicaoLetra2[0] + 1][posicaoLetra2[1]];
+            }
+
+        }else if(posicaoLetra1[0] == posicaoLetra2[0]) { //Verifica se as letras estão na mesma linha
+            if(posicaoLetra1[1] == 4) { //Verifica se a letra1 está na última posição
+                letra1Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1]];
+                letra2Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] + 1];
+            }else if(posicaoLetra2[1] == 4) { //Verifica se a letra2 está na última posição
+                letra2Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1]]           
+                letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 1];
+            }else { //Se nenhuma das letras estiver na última posiçao, desce uma coluna
+                letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 1];
+                letra2Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] + 1];
+            }
+
+        }else { //Se as letras não estiverem na mesma linha ou coluna
+            letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra2[1]];
+            letra2Encriptada = matriz[posicaoLetra2[0]][posicaoLetra1[1]];
+        }
+        textoEncriptado.push(letra1Encriptada + letra2Encriptada); //Adiciona as letras encriptadas no texto encriptado
+    });
+    console.log(textoEncriptado);
+    return textoEncriptado;
+}
 
 //Função para criar um alerta
 function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
