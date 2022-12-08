@@ -21,6 +21,11 @@ const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M
 /* let matriz = Array(5).fill( Array(5).fill("none") ); //Declara matriz vazia */
 const matriz = [[], [], [], [], []]; //Declara matriz vazia
 
+
+
+
+
+
 //Clique no botão encriptar
 tabEncriptar.addEventListener("click", () => {
     //Troca para a section de encriptar
@@ -61,9 +66,10 @@ btnClear.addEventListener("click", () => {
 
 //Clique no botão Copiar Texto
 btnCopy1.addEventListener("click", () => {
-    if(!textarea2.value === "") {
+    if(textarea2.value != "") {
         //Copia o texto para o cilpboard
         const text = textarea2.value;
+        console.log(text);
         navigator.clipboard.writeText(text);
 
         ConfiguracaoAlerta("Texto copiado com sucesso", "fa-copy", "verde"); //Mostra o alerta
@@ -74,14 +80,27 @@ btnCopy1.addEventListener("click", () => {
 
 //Clique no botão definir a chave da cifra
 btnDefinir.addEventListener("click", () => {
-    //Preenche a tabela da cifra
-    preencheTabelaCifra();
-    encriptar();
+    preencheTabelaCifra(); //Preenche a tabela da cifra
 });
 
 btnRun1.addEventListener("click", () => {
-    
+    const texto = textarea1.value; //Texto a ser encriptado
+
+    //Mostra o alerta se o texto para encriptar estiver vazio
+    if(!texto) {
+        ConfiguracaoAlerta("Preencha o campo Texto para Encriptar", "fa-triangle-exclamation", "laranja");
+        return;
+    }
+
+    const textoEncriptado = encriptar(texto); //Chama a função encriptar
+    textarea2.value = textoEncriptado; //Mostra o texto encriptado
 });
+
+
+
+
+
+
 
 //Função para preencher a tabela da cifra
 function preencheTabelaCifra() {
@@ -95,7 +114,7 @@ function preencheTabelaCifra() {
         return;
     }
 
-    //Remove caracteres especiais
+    //Verifica se tem caracteres especiais
     for(let i = 0; i < chaveCifra.length; i++) {
         if(!alfabeto.includes(chaveCifra[i])) {
             ConfiguracaoAlerta("Caracteres inválidos, introduza caracteres de A-Z", "fa-triangle-exclamation", "laranja");
@@ -160,9 +179,21 @@ function removeDuplicados(texto) {
 }
 
 //Prepara o texto para ser encriptado
-function preparaTexto(texto) {
-    texto = texto.toUpperCase(); //Converte para letras maiúsculas
+function preparaTexto(texto, tipo) {
+    texto = texto.toString().toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
+
+    if(tipo == 1) {
+        texto = texto.replace(/J/g, ""); //Substitui a letra J por X
+    }
+    
+    //Verifica se tem caracteres especiais
+    for(let i = 0; i < texto.length; i++) {
+        if(!alfabeto.includes(texto[i])) {
+            ConfiguracaoAlerta("Caracteres inválidos, introduza caracteres de A-Z", "fa-triangle-exclamation", "laranja");
+            return;
+        }
+    }
     
     const ArrayTexto = []; //Variável para armazenar o texto final dividido em pares
     let letra1 = ""; //Variável para armazenar a primeira letra
@@ -190,8 +221,8 @@ function preparaTexto(texto) {
 }
 
 //Encripta o texto
-function encriptar() {
-    const textoPreparado = preparaTexto("ms"); //Variável para armazenar o texto preparado
+function encriptar(texto) {
+    const textoPreparado = preparaTexto(texto, 1); //Variável para armazenar o texto preparado
     const textoEncriptado = []; //Variável para armazenar o texto encriptado
     
     textoPreparado.forEach((parDeLetras) => {
@@ -218,22 +249,23 @@ function encriptar() {
 
         if(posicaoLetra1[1] == posicaoLetra2[1]) { //Verifica se as letras estão na mesma coluna
             if(posicaoLetra1[0] == 4) { //Verifica se a letra1 está na última posição
-                letra1Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1]];
+                letra1Encriptada = matriz[posicaoLetra1[0] - 4][posicaoLetra1[1]];
                 letra2Encriptada = matriz[posicaoLetra2[0] + 1][posicaoLetra2[1]];
             }else if(posicaoLetra2[0] == 4) { //Verifica se a letra2 está na última posição
-                letra2Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1]];
+                letra2Encriptada = matriz[posicaoLetra2[0] - 4][posicaoLetra2[1]];
                 letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
             }else { //Se nenhuma das letras estiver na última posiçao, descem uma linha
+                console.log(posicaoLetra1[0] + 1);
                 letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
                 letra2Encriptada = matriz[posicaoLetra2[0] + 1][posicaoLetra2[1]];
             }
 
         }else if(posicaoLetra1[0] == posicaoLetra2[0]) { //Verifica se as letras estão na mesma linha
             if(posicaoLetra1[1] == 4) { //Verifica se a letra1 está na última posição
-                letra1Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1]];
+                letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] - 4];
                 letra2Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] + 1];
             }else if(posicaoLetra2[1] == 4) { //Verifica se a letra2 está na última posição
-                letra2Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1]]           
+                letra2Encriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] - 4]           
                 letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 1];
             }else { //Se nenhuma das letras estiver na última posiçao, desce uma coluna
                 letra1Encriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 1];
