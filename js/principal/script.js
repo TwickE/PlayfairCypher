@@ -56,6 +56,8 @@ btnClear.addEventListener("click", () => {
     inputCypher.value = "";
     textarea1.value = "";
     textarea2.value = "";
+    textarea3.value = "";
+    textarea4.value = "";
     //Limpa a tabela da cifra
     tds.forEach((td) => {
         td.innerHTML = "";
@@ -83,6 +85,7 @@ btnDefinir.addEventListener("click", () => {
     preencheTabelaCifra(); //Preenche a tabela da cifra
 });
 
+//Clique no botão encriptar
 btnRun1.addEventListener("click", () => {
     const texto = textarea1.value; //Texto a ser encriptado
 
@@ -92,7 +95,8 @@ btnRun1.addEventListener("click", () => {
         return;
     }
 
-    const textoEncriptado = encriptar(texto); //Chama a função encriptar
+    let textoEncriptado = encriptar(texto); //Chama a função encriptar
+    textoEncriptado = textoEncriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea2.value = textoEncriptado; //Mostra o texto encriptado
 });
 
@@ -106,6 +110,7 @@ btnRun1.addEventListener("click", () => {
 function preencheTabelaCifra() {
     chaveCifra = input.value.replace(/(\s*)/g, ""); //Remove os espaços
     chaveCifra = chaveCifra.toUpperCase(); //Converte para letras maiúsculas
+    chaveCifra = chaveCifra.replace(/J/g, ""); //Remove as letras J
     chaveCifra = removeDuplicados(chaveCifra); //Remove as letras duplicadas
 
     //Mostra o alerta se a chave da cifra estiver vazia
@@ -149,7 +154,7 @@ function preencheTabelaCifra() {
         td.innerHTML = letras[i];
         i++;
     });
-    matrizTabelaCifra();
+    matrizTabelaCifra(); //Chama afunçaõ que gurada a tabela da cifra numa matriz
 }
 
 //Função para preencher a matriz com as letras da tabela da cifra
@@ -179,13 +184,11 @@ function removeDuplicados(texto) {
 }
 
 //Prepara o texto para ser encriptado
-function preparaTexto(texto, tipo) {
+function preparaTexto(texto) {
     texto = texto.toString().toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
-
-    if(tipo == 1) {
-        texto = texto.replace(/J/g, ""); //Substitui a letra J por X
-    }
+    texto = texto.replace(/J/g, ""); //Remove a letra J
+    
     
     //Verifica se tem caracteres especiais
     for(let i = 0; i < texto.length; i++) {
@@ -222,7 +225,7 @@ function preparaTexto(texto, tipo) {
 
 //Encripta o texto
 function encriptar(texto) {
-    const textoPreparado = preparaTexto(texto, 1); //Variável para armazenar o texto preparado
+    const textoPreparado = preparaTexto(texto); //Variável para armazenar o texto preparado
     const textoEncriptado = []; //Variável para armazenar o texto encriptado
     
     textoPreparado.forEach((parDeLetras) => {
@@ -311,5 +314,5 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
     //Esconde o alerta
     setTimeout(() => {
         alerta.classList.remove("visible");
-    }, 3000);
+    }, 2000);
 }
