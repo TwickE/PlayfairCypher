@@ -8,6 +8,7 @@ const h4Two = document.getElementById("h4-2");
 const inputCypher = document.getElementById("input");
 const textarea1 = document.getElementById("textarea1");
 const btnRun1 = document.getElementById("btn-run1");
+const btnRun2 = document.getElementById("btn-run2");
 const textarea2 = document.getElementById("textarea2");
 const textarea3 = document.getElementById("textarea3");
 const textarea4 = document.getElementById("textarea4");
@@ -98,6 +99,21 @@ btnRun1.addEventListener("click", () => {
     let textoEncriptado = encriptar(texto); //Chama a função encriptar
     textoEncriptado = textoEncriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea2.value = textoEncriptado; //Mostra o texto encriptado
+});
+
+//Clique no botão desencriptar
+btnRun2.addEventListener("click", () => {
+    const texto = textarea3.value; //Texto a ser encriptado
+
+    //Mostra o alerta se o texto para encriptar estiver vazio
+    if(!texto) {
+        ConfiguracaoAlerta("Preencha o campo Texto para Encriptar", "fa-triangle-exclamation", "laranja");
+        return;
+    }
+
+    let textoDesencriptado = encriptar(texto); //Chama a função encriptar
+    textoDesencriptado = textoDesencriptado.toString().replace(/,/g, ""); //Remove as virgulas
+    textarea4.value = textoDesencriptado; //Mostra o texto encriptado
 });
 
 
@@ -258,7 +274,6 @@ function encriptar(texto) {
                 letra2Encriptada = matriz[posicaoLetra2[0] - 4][posicaoLetra2[1]];
                 letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
             }else { //Se nenhuma das letras estiver na última posiçao, descem uma linha
-                console.log(posicaoLetra1[0] + 1);
                 letra1Encriptada = matriz[posicaoLetra1[0] + 1][posicaoLetra1[1]];
                 letra2Encriptada = matriz[posicaoLetra2[0] + 1][posicaoLetra2[1]];
             }
@@ -283,6 +298,67 @@ function encriptar(texto) {
     });
     console.log(textoEncriptado);
     return textoEncriptado;
+}
+
+//Desencripta o texto
+function desencriptar(texto) {
+    const textoPreparado = preparaTexto(texto); //Variável para armazenar o texto preparado
+    const textoDesencriptado = []; //Variável para armazenar o texto desencriptado
+
+    textoPreparado.forEach((parDeLetras) => {
+        let letra1 = parDeLetras[0];
+        let letra2 = parDeLetras[1];
+        let posicaoLetra1 = [];
+        let posicaoLetra2 = [];
+
+        //Percorre a matriz para encontrar a posição das letras
+        for(let x = 0; x < 5; x++) {
+            for(let y = 0; y < 5; y++) {
+                if(matriz[x][y] == letra1) {
+                    posicaoLetra1 = [x, y]; //Guarda a posição da letra1
+                    console.log("Letra: " + matriz[x][y] + " Posição: " + posicaoLetra1);
+                }else if(matriz[x][y] == letra2) {
+                    posicaoLetra2 = [x, y]; //Guarda a posição da letra2
+                    console.log("Letra: " + matriz[x][y] + " Posição: " + posicaoLetra2);
+                }
+            }
+        }
+
+        let letra1Desencriptada = "";
+        let letra2Desencriptada = "";
+
+        if(posicaoLetra1[1] == posicaoLetra2[1]) { //Verifica se as letras estão na mesma coluna
+            if(posicaoLetra1[0] == 4) { //Verifica se a letra1 está na última posição
+                letra1Desencriptada = matriz[posicaoLetra1[0] + 4][posicaoLetra1[1]];
+                letra2Desencriptada = matriz[posicaoLetra2[0] - 1][posicaoLetra2[1]];
+            }else if(posicaoLetra2[0] == 4) { //Verifica se a letra2 está na última posição
+                letra2Desencriptada = matriz[posicaoLetra2[0] + 4][posicaoLetra2[1]];
+                letra1Desencriptada = matriz[posicaoLetra1[0] - 1][posicaoLetra1[1]];
+            }else { //Se nenhuma das letras estiver na última posiçao, descem uma linha
+                letra1Desencriptada = matriz[posicaoLetra1[0] - 1][posicaoLetra1[1]];
+                letra2Desencriptada = matriz[posicaoLetra2[0] - 1][posicaoLetra2[1]];
+            }
+
+        }else if(posicaoLetra1[0] == posicaoLetra2[0]) { //Verifica se as letras estão na mesma linha
+            if(posicaoLetra1[1] == 4) { //Verifica se a letra1 está na última posição
+                letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 4];
+                letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] - 1];
+            }else if(posicaoLetra2[1] == 4) { //Verifica se a letra2 está na última posição
+                letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] + 4]           
+                letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] - 1];
+            }else { //Se nenhuma das letras estiver na última posiçao, desce uma coluna
+                letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] - 1];
+                letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] - 1];
+            }
+
+        }else { //Se as letras não estiverem na mesma linha ou coluna
+            letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra2[1]];
+            letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra1[1]];
+        }
+        textoDesencriptado.push(letra1Desencriptada + letra2Desencriptada); //Adiciona as letras encriptadas no texto encriptado
+    });
+    console.log(textoDesencriptado);
+    return textoDesencriptado;
 }
 
 //Função para criar um alerta
