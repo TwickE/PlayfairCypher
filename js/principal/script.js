@@ -111,7 +111,7 @@ btnRun2.addEventListener("click", () => {
         return;
     }
 
-    let textoDesencriptado = encriptar(texto); //Chama a função encriptar
+    let textoDesencriptado = desencriptar(texto); //Chama a função encriptar
     textoDesencriptado = textoDesencriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea4.value = textoDesencriptado; //Mostra o texto encriptado
 });
@@ -328,10 +328,10 @@ function desencriptar(texto) {
         let letra2Desencriptada = "";
 
         if(posicaoLetra1[1] == posicaoLetra2[1]) { //Verifica se as letras estão na mesma coluna
-            if(posicaoLetra1[0] == 4) { //Verifica se a letra1 está na última posição
+            if(posicaoLetra1[0] == 0) { //Verifica se a letra1 está na última posição
                 letra1Desencriptada = matriz[posicaoLetra1[0] + 4][posicaoLetra1[1]];
                 letra2Desencriptada = matriz[posicaoLetra2[0] - 1][posicaoLetra2[1]];
-            }else if(posicaoLetra2[0] == 4) { //Verifica se a letra2 está na última posição
+            }else if(posicaoLetra2[0] == 0) { //Verifica se a letra2 está na última posição
                 letra2Desencriptada = matriz[posicaoLetra2[0] + 4][posicaoLetra2[1]];
                 letra1Desencriptada = matriz[posicaoLetra1[0] - 1][posicaoLetra1[1]];
             }else { //Se nenhuma das letras estiver na última posiçao, descem uma linha
@@ -340,10 +340,10 @@ function desencriptar(texto) {
             }
 
         }else if(posicaoLetra1[0] == posicaoLetra2[0]) { //Verifica se as letras estão na mesma linha
-            if(posicaoLetra1[1] == 4) { //Verifica se a letra1 está na última posição
+            if(posicaoLetra1[1] == 0) { //Verifica se a letra1 está na última posição
                 letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] + 4];
                 letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] - 1];
-            }else if(posicaoLetra2[1] == 4) { //Verifica se a letra2 está na última posição
+            }else if(posicaoLetra2[1] == 0) { //Verifica se a letra2 está na última posição
                 letra2Desencriptada = matriz[posicaoLetra2[0]][posicaoLetra2[1] + 4]           
                 letra1Desencriptada = matriz[posicaoLetra1[0]][posicaoLetra1[1] - 1];
             }else { //Se nenhuma das letras estiver na última posiçao, desce uma coluna
