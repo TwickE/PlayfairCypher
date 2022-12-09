@@ -1,7 +1,9 @@
 const tabEncriptar = document.getElementById("encriptar");
 const tabDesencriptar = document.getElementById("desencriptar");
+const tabFuncionamento = document.getElementById("funcionamento");
 const sectionEncriptar = document.getElementById("sectionEncriptar");
 const sectionDesencriptar = document.getElementById("sectionDesencriptar");
+const sectionFuncionamento = document.getElementById("sectionFuncionamento");
 const btnDefinir = document.getElementById("btn-Definir");
 const h4One = document.getElementById("h4-1");
 const h4Two = document.getElementById("h4-2");
@@ -33,8 +35,11 @@ tabEncriptar.addEventListener("click", () => {
     try {
         tabDesencriptar.classList.add("deactive");
         tabEncriptar.classList.remove("deactive");
+        tabFuncionamento.classList.add("deactive");
         sectionDesencriptar.classList.add("hide");
+        sectionFuncionamento.classList.add("hide");
         sectionEncriptar.classList.remove("hide");
+        sectionLogica.classList.remove("hide");
     }catch(e) {
     }
 });
@@ -45,8 +50,26 @@ tabDesencriptar.addEventListener("click", () => {
     try {
         tabEncriptar.classList.add("deactive");
         tabDesencriptar.classList.remove("deactive");
+        tabFuncionamento.classList.add("deactive");
         sectionDesencriptar.classList.remove("hide");
         sectionEncriptar.classList.add("hide");
+        sectionFuncionamento.classList.add("hide");
+        sectionLogica.classList.remove("hide");
+    }catch(e) {
+    }
+});
+
+//Clique no botão funcionamento
+tabFuncionamento.addEventListener("click", () => {
+    //Troca para a section de desencriptar
+    try {
+        tabEncriptar.classList.add("deactive");
+        tabDesencriptar.classList.add("deactive");
+        tabFuncionamento.classList.remove("deactive");
+        sectionDesencriptar.classList.add("hide");
+        sectionEncriptar.classList.add("hide");
+        sectionFuncionamento.classList.remove("hide");
+        sectionLogica.classList.add("hide");
     }catch(e) {
     }
 });
@@ -382,7 +405,7 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
     alerta.innerHTML += icon;
 
     //Texto do alerta
-    let texto = `<p id="alertaTexto">${paragrafoTexto}</p>`
+    let texto = `<p id="alertaTexto" style="color: #111;">${paragrafoTexto}</p>`
     alerta.innerHTML += texto;
     
     alerta.classList.add("visible"); //Mostra o alerta

@@ -67,11 +67,13 @@ main {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    gap: 2%;
+    margin-bottom: 2rem;
 }
 
 .container-btn button {
     display: block;
-    width: 49%;
+    width: 32%;
     height: 3.5rem;
     border: none;
     border-radius: 5px;
@@ -85,10 +87,13 @@ main {
     color: #fff;
 }
 
+.deactive:hover {
+    background-color: rgb(235, 235, 235, 0.1);
+}
+
 .container-chave {
     display: flex;
     flex-direction: row;
-    margin-top: 2rem;
     width: 100%;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -124,10 +129,17 @@ main {
     color: #111;
 }
 
-main h4 {
+h4, h3 {
     color: #fff;
     font-weight: bold;
     margin-top: 2rem;
+    margin-bottom: 0;
+}
+
+h5 {
+    color: #fff;
+    font-weight: bold;
+    margin-top: 1rem;
     margin-bottom: 0;
 }
 
@@ -232,3 +244,29 @@ section {
     background-color: #EBEBEB;
     color: #111;
 }
+
+.containerTexto {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    max-height: 645px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 2rem;
+}
+
+p, li {
+    color: #fff;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 0;
+}
+
+hr {
+    height: 3px;
+    background-color: #fff;
+}
+
+ul ul li {
+    font-weight: 400 !important;
+}   
