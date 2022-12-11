@@ -82,10 +82,18 @@ btnClear.addEventListener("click", () => {
     textarea2.value = "";
     textarea3.value = "";
     textarea4.value = "";
+
     //Limpa a tabela da cifra
     tds.forEach((td) => {
         td.innerHTML = "";
     });
+
+    //Limpa a tabela da cifra
+    for(let x = 0; x < 5; x++) {
+        for(let y = 0; y < 5; y++) {
+            matriz[x][y] = undefined;
+        }
+    }
 
     ConfiguracaoAlerta("Tudo Limpo", "fa-circle-check", "verde"); //Mostra o alerta
 });
@@ -119,6 +127,14 @@ btnRun1.addEventListener("click", () => {
         return;
     }
 
+    const tabela = verificaTabela(); //Verifica se a tabela da cifra está preenchida
+
+    //Mostra o alerta se a tabela da cifra estiver vazia
+    if(tabela == false) {
+        ConfiguracaoAlerta("Erro! A tabela da cifra está vazia", "fa-circle-exclamation", "vermelho");
+        return;
+    }
+
     let textoEncriptado = encriptar(texto); //Chama a função encriptar
     textoEncriptado = textoEncriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea2.value = textoEncriptado; //Mostra o texto encriptado
@@ -131,6 +147,14 @@ btnRun2.addEventListener("click", () => {
     //Mostra o alerta se o texto para encriptar estiver vazio
     if(!texto) {
         ConfiguracaoAlerta("Preencha o campo Texto para Encriptar", "fa-triangle-exclamation", "laranja");
+        return;
+    }
+
+    const tabela = verificaTabela(); //Verifica se a tabela da cifra está preenchida
+
+    //Mostra o alerta se a tabela da cifra estiver vazia
+    if(tabela == false) {
+        ConfiguracaoAlerta("Erro! A tabela da cifra está vazia", "fa-circle-exclamation", "vermelho");
         return;
     }
 
@@ -382,6 +406,24 @@ function desencriptar(texto) {
     });
     console.log(textoDesencriptado);
     return textoDesencriptado;
+}
+
+//Função para verificar se a tabela da cifra está preenchida
+function verificaTabela() {
+    let tabelaPreenchida = true;
+
+    for(let x = 0; x < 5; x++) {
+        for(let y = 0; y < 5; y++) {
+            if(matriz[x][y] == undefined) {
+                tabelaPreenchida = false;
+                break;
+            }else {
+                console.log("Conteúdo: " + matriz[x][y]);
+            }
+        }
+    }
+
+    return tabelaPreenchida;
 }
 
 //Função para criar um alerta
