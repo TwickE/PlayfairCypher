@@ -138,6 +138,8 @@ btnRun1.addEventListener("click", () => {
     let textoEncriptado = encriptar(texto); //Chama a função encriptar
     textoEncriptado = textoEncriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea2.value = textoEncriptado; //Mostra o texto encriptado
+
+    ConfiguracaoAlerta("Texto encriptado com sucesso", "fa-circle-check", "verde"); //Mostra o alerta
 });
 
 //Clique no botão desencriptar
@@ -161,6 +163,8 @@ btnRun2.addEventListener("click", () => {
     let textoDesencriptado = desencriptar(texto); //Chama a função encriptar
     textoDesencriptado = textoDesencriptado.toString().replace(/,/g, ""); //Remove as virgulas
     textarea4.value = textoDesencriptado; //Mostra o texto encriptado
+
+    ConfiguracaoAlerta("Texto desencriptado com sucesso", "fa-circle-check", "verde"); //Mostra o alerta
 });
 
 
