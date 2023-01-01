@@ -1,3 +1,4 @@
+//Seleciona os elementos do HTML para serem manipulados
 const tabEncriptar = document.getElementById("encriptar");
 const tabDesencriptar = document.getElementById("desencriptar");
 const tabFuncionamento = document.getElementById("funcionamento");
@@ -23,11 +24,6 @@ const numeroLetras = 25; //Tamnho da tabela da cifra
 const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]; //Alfabeto
 /* let matriz = Array(5).fill( Array(5).fill("none") ); //Declara matriz vazia */
 const matriz = [[], [], [], [], []]; //Declara matriz vazia
-
-
-
-
-
 
 //Clique no botão encriptar
 tabEncriptar.addEventListener("click", () => {
@@ -166,12 +162,6 @@ btnRun2.addEventListener("click", () => {
 
     ConfiguracaoAlerta("Texto desencriptado com sucesso", "fa-circle-check", "verde"); //Mostra o alerta
 });
-
-
-
-
-
-
 
 //Função para preencher a tabela da cifra
 function preencheTabelaCifra() {
