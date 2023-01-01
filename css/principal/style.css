@@ -11,6 +11,7 @@ body {
 }
 
 #container-alerta {
+    z-index: 999;
     position: fixed;
     visibility: hidden;
     display: flex;
