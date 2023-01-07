@@ -426,13 +426,13 @@ function ConfiguracaoAlerta(paragrafoTexto, iconTexto, cor) {
 
     //Cor do alerta
     if(cor === "verde") {
-        alerta.style.backgroundColor = "#C7E2D6";
+        alerta.style.backgroundColor = "#C7E2D6cc";
         alerta.style.border = "3px solid #41b341";
     }else if(cor === "vermelho") {
-        alerta.style.backgroundColor = "#F6CCD1";
+        alerta.style.backgroundColor = "#F6CCD1cc";
         alerta.style.border = "3px solid #c62222";
     }else {
-        alerta.style.backgroundColor = "#FFF1C2";
+        alerta.style.backgroundColor = "#FFF1C2cc";
         alerta.style.border = "3px solid #de9324";
     }
 

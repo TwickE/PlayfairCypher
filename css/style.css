@@ -13,7 +13,6 @@ body {
 #container-alerta {
     z-index: 999;
     position: fixed;
-    /* visibility: hidden; */
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -82,6 +81,7 @@ button {
     display: block;
     width: 32%;
     height: 3.5rem;
+    background-color: #EBEBEB;
     border: none;
     border-radius: 5px;
     font-size: 1.5rem;
@@ -90,7 +90,7 @@ button {
 }
 
 .deactive {
-    background-color: transparent;
+    background-color: transparent !important;
     color: #fff;
 }
 
@@ -239,12 +239,12 @@ textarea {
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
-    border: none;
     border: 2px solid #EBEBEB;
     border-left: 0;
     border-radius: 0 5px 5px 0;
     background-color: transparent;
     transition: background-color 300ms ease-in 0s, color 300ms ease-in 0s;
+    margin-top: 0;
 }
 
 .container-textarea button:hover {
@@ -296,4 +296,87 @@ hr {
 
 ul ul li {
     font-weight: 400 !important;
-}   
+}
+
+@media only screen and (max-width: 1400px){
+    main {
+        max-width: 70%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    main {
+        max-width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    #container-alerta {
+        
+        width: 90%;
+        
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    main {
+        max-width: 100%;
+    }
+
+    .container-btn {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .container-btn button {
+        width: 100%;
+        border: 1px solid #EBEBEB;
+    }
+
+    .container-chave {
+        flex-direction: column;
+    }
+
+    .container-chave input {
+        width:100%;
+        border-radius: 5px;
+    }
+    
+    .container-chave button {
+        color: #111;
+        background-color: #EBEBEB;
+        width: 45%;
+        height: 2.5rem;
+        border-radius: 20px;
+        margin-top: 0.5rem !important;
+        margin: auto;
+    }
+
+    .container-textarea textarea {
+        min-height: 4.5rem !important;
+        height: 4.5rem;
+    }
+
+    .container-textarea button {
+        min-height: 4.5rem !important;
+        height: 4.5rem;
+        background-color: #EBEBEB;
+        color: #111;
+    }
+
+    .containerTexto {
+        max-height: unset;
+        overflow-y: hidden;
+    }
+
+    #btn-clear {
+        width: 60%;
+        color: #111;
+        background-color: #EBEBEB;
+    }
+}
