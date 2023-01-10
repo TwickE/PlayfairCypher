@@ -201,10 +201,14 @@ section {
     opacity: 1 !important;
 }
 
+#sectionLogica h4 {
+    text-align: center;
+}
+
 .container-textarea {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     align-items: stretch;
     width: 100%;
     margin-top: 0.5rem;
@@ -245,6 +249,7 @@ textarea {
     background-color: transparent;
     transition: background-color 300ms ease-in 0s, color 300ms ease-in 0s;
     margin-top: 0;
+    padding: 0;
 }
 
 .container-textarea button:hover {
