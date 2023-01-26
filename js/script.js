@@ -208,8 +208,13 @@ function preencheTabelaCifra() {
     let i = 0; //Variável contadora
     //Preenche a tabela da cifra
     tds.forEach((td) => {
-        td.innerHTML = letras[i];
-        i++;
+        if(letras[i] == "I") {
+            td.innerHTML = "I/J";
+            i++
+        }else {
+            td.innerHTML = letras[i];
+            i++;
+        }
     });
     matrizTabelaCifra(); //Chama afunçaõ que gurada a tabela da cifra numa matriz
 }
@@ -221,8 +226,13 @@ function matrizTabelaCifra() {
     //Preenche a matriz com as letras da tabela da cifra
     for(let x = 0; x < 5; x++) {
         for(let y = 0; y < 5; y++) {
-            matriz[x][y] = tds[i].innerHTML;
-            i++;
+            if(tds[i].innerHTML == "I/J") {
+                matriz[x][y] = "I";
+                i++;
+            }else {
+                matriz[x][y] = tds[i].innerHTML;
+                i++;
+            }
         }
     }
 }
@@ -244,7 +254,7 @@ function removeDuplicados(texto) {
 function preparaTexto(texto) {
     texto = texto.toString().toUpperCase(); //Converte para letras maiúsculas
     texto = texto.replace(/(\s*)/g, ""); //Remove os espaços
-    texto = texto.replace(/J/g, ""); //Remove a letra J
+    texto = texto.replace(/J/g, "I"); //Remove a letra J
     
     
     //Verifica se tem caracteres especiais
